@@ -3,9 +3,13 @@ import smtplib
 import os
 from email.mime.text import MIMEText
 
-URL = "https://youtube.com/"
+URL = "https://results.bmsce.contineo.in/"
 
-html = requests.get(URL, timeout=20).text
+try:
+    html = requests.get(URL, timeout=20).text
+except requests.RequestException as e:
+    print(f"Request failed: {e}")
+    exit(1)
 
 if "The Site is Currently Down" not in html:
 
@@ -14,7 +18,7 @@ if "The Site is Currently Down" not in html:
         "Open: https://results.bmsce.contineo.in/"
     )
 
-    msg["Subject"] = "BMSCE Results Available"
+    msg["Subject"] = "🎓 BMSCE Results Available!"
     msg["From"] = os.environ["EMAIL_USER"]
     msg["To"] = os.environ["EMAIL_TO"]
 
@@ -25,7 +29,7 @@ if "The Site is Currently Down" not in html:
         )
         server.send_message(msg)
 
-    print("EMAIL SENT")
+    print("EMAIL SENT - Results site is LIVE!")
 
 else:
-    print("Site still down")
+    print("Site still down - will check again next run")
