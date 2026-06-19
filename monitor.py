@@ -3,7 +3,7 @@ import smtplib
 import os
 from email.mime.text import MIMEText
 
-URL = "https://results.bmsce.contineo.in/"
+URL = "https://youtube.com/"
 
 html = requests.get(URL, timeout=20).text
 
